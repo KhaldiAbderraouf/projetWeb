@@ -1,0 +1,11 @@
+#partie2{
+	width:100%;
+}
+#droite{
+	width:49%;
+	float: right;
+}
+#gauche{
+	float: left;
+	width:49%;
+}

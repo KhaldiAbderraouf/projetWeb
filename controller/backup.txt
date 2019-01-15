@@ -1,0 +1,238 @@
+///////////////////////////////////////////////////////////////////////////////////////
+$(document).ready(function() {
+	$diap=1;
+    loadAccueil();
+
+});
+
+
+setInterval(function(){ 
+  changeDiapo();
+}, 1000);
+
+function loadAccueil(){
+	loadEntete();
+	loadSideNav();
+	initContenu();
+	loadPied();
+	loadContenu();
+}
+
+function initContenu(){
+	$contenu=$("<div></div>").attr("id","ContenuS");
+	$contenup=$("<div></div>").attr("id","Contenu");
+	$($contenu).append($contenup);
+	$("body").append($contenu);
+}
+
+function loadEntete(){
+	$head=$("<div></div>").attr("id","head");
+	$head.height($(window).height()*0.3);
+	$("body").append($head);
+	loadLogo();
+	loadDiapo();
+}
+
+function loadLogo(){
+	$logo=$("<div></div>").attr("id","logo");
+	$logo.css('background-image', 'url(../images/logo.jpg)');
+	$("#head").append($logo);
+}
+
+function loadDiapo(){
+	$diapo=$("<div></div>").attr("id","diapo");
+	$diapo.css('background-image', 'url(../images/diapo1.jpg)');
+	$diapo.css('background-size','100% 100%');
+	$diapo.css("background-repeat"," no-repeat");
+	$("#head").append($diapo);
+}
+
+
+function changeDiapo(){
+	
+	$diap=(($diap+1)%3)+1;
+	$diapo.css('background-image', 'url(../images/diapo'+$diap+'.jpg)');
+	$diapo.css('background-size','100% 100%');
+	$diapo.css("background-repeat"," no-repeat");
+}
+
+function Log(){
+	var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+    	$t=xhttp.responseText;
+	    $("table tbody").html($t);
+    }
+  };
+  xhttp.open("POST", "../controller/usermanager.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  $p=location.pathname.split('/').slice(-1)[0];
+  $id=$("#iname").val();
+  $pwd=$("#ipwd").val();
+  alert($p);
+  xhttp.send("p="+$p+"&id="+$id+"&pwd="+$pwd); 
+}
+
+function loadSideNav(){
+	$navbar=$("<div></div>").attr("id","navbar");
+	if($("#login").val()=="false"){
+		$btn=('<form class="divlogin" method="post" action="../controller/usermanager.php">'+
+	        '<input id="iname" placeholder="name" name="id">'+
+	        '<input id="ipwd" type="password" placeholder="password" name="pwd">'+
+	        '<input type="submit" class="ajouter" id="login" value="login">'+
+	        '<input id="p" name="p" type="hidden" value="'+location.pathname.split('/').slice(-1)[0]+'">'+
+	    	'</form>');
+	}
+	else{
+		$btn=('<p>'+$("#login").val()+'</p>')
+	}
+	$navbar.append($btn);
+
+	$btn=("<a href='index.php' class='lien'>accueil</a>");
+	$navbar.append($btn);
+	$btn=("<a href='Univ.php' class='lien'>Formations Universitaires</a>");
+	$navbar.append($btn);
+	$btn=("<a href='prof.php' class='lien'>Formations professionnelles</a>");
+	$navbar.append($btn);
+	$btn=("<a href='seco.php' class='lien'>Formations secondaires</a>");
+	$navbar.append($btn);
+	$btn=("<a href='moy.php' class='lien'>Formations moyennes</a>");
+	$navbar.append($btn);
+	$btn=("<a href='prim.php' class='lien'>Formations primaires</a>");
+	$navbar.append($btn);
+	$btn=("<a href='mate.php' class='lien'>Formations maternelles</a>");
+	$navbar.append($btn);
+	$btn=("<a href='apropos.php' class='lien'>à propos</a>");
+	$navbar.append($btn);
+
+	$("body").append($navbar);
+}
+
+
+function addCat(form){
+	$cat=("<Button class='categorie'>"+form+"</Button>");
+	$("#Contenu").append($cat);
+	//addCat2(form);
+}
+
+function addCat2(form){
+	$cat=(form);
+	$("#piedM").append($cat);
+}
+
+function loadPied(){
+	$pied=$("<div></div>").attr("id","pied");
+	$pied.height($(window).height()*0.1);
+	$("#Contenu").append($pied);
+	loadMenuPied();
+	loadPub();
+}
+
+function loadMenuPied(){
+	$pied=$("<div></div>").attr("id","piedM");
+	$("#pied").append($pied);
+	addCat2("<a href='Univ.php' class='lien'>Formations Universitaires</a>");
+	addCat2("<a href='prof.php' class='lien'>Formations professionnelles</a>");
+	addCat2("<a href='seco.php' class='lien'>Formations secondaires</a>");
+	addCat2("<a href='moy.php' class='lien'>Formations moyennes</a>");
+	addCat2("<a href='prim.php' class='lien'>Formations primaires</a>");
+	addCat2("<a href='mate.php' class='lien'>Formations maternelles");
+}
+
+function loadPub(){
+	$pied=$("<div></div>").attr("id","piedPUB");
+	$pied.append('<img src="../images/logo.jpg">');
+	$("#pied").append($pied);
+}
+
+function loadContenuFormation(){
+
+}
+///////////////////////////////////////////////////////////////////////////////////////
+function loadContenu(){
+	partie1();
+	partie2();
+	partie3();
+}
+
+function partie1(){
+	$div=$("<div id='partie1'></div>");
+	$type=$("<select id='type'></select>");
+	$ecole1=$("<select id='ecole1'></select>");
+	$ecole2=$("<select id='ecole2'></select>");
+	$div.append($type,$ecole1,$ecole2);
+	$("#Contenu").append($div);
+}
+
+function intitselectType(){
+	var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+    	$t=xhttp.responseText;
+    	$("#type").html($t);
+    }
+  };
+  xhttp.open("POST", "../controller/EtablissementManager.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("req=categories");
+}
+
+function partie2(){
+	$div=$("<div id='partie2'></div>");
+	$divd=$("<div id='droite'></div>");
+	$tab1=$("<div id='tab1'></div>");
+	$divd.append($tab1);
+	$divg=$("<div id='gauche'></div>");
+	$tab2=$("<div id='tab2'></div>");
+	$div.append($divg,$divd);
+	$divg.append($tab2);
+	$("#Contenu").append($div);
+
+	initcoter("Ecole Supérieure Vétérinaire","Formations universitaires",1);
+	initcoter("Ecole Supérieure de Commerce","Formations universitaires",2);
+}
+
+function partie3(){
+
+}
+
+function initcoter($ecole,$typef,$i){
+	getURL($ecole,$typef,$i);
+	getComs($type,$i);
+}
+
+function getURL($ecole,$typef,$i){
+	var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+    	$t=xhttp.responseText;
+    	$("#tab"+$i).load($t+" #mytable");
+    }
+  };
+  xhttp.open("POST", "../controller/ComparerManager.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("etab="+$ecole+"&type="+$typef);
+}
+
+function getComs($type,$i){
+	var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+    	$t=xhttp.responseText;
+	    $tab="<table><thead><tr><th>commentaire</th><th>date</th></tr></thead><tbody>"+$t+"</tbody></table>";
+	    if($i==1){
+	    	$("#droite").append($tab);
+	    }
+	    else{
+			$("#gauche").append($tab);
+	    }
+    }
+  };
+  xhttp.open("POST", "../controller/CommentManager.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("etab="+$type);
+}

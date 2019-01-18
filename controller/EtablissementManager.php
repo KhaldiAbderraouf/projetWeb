@@ -36,5 +36,30 @@
 				$ess->delete($etab,$type);
 			}
 		}
+		elseif ($req=="add") {
+			if(isset($_POST['domaine'])){$domaine=$_POST['domaine'];}else{$domaine="";}
+			if(isset($_POST['wilaya'])){$wilaya=$_POST['wilaya'];}else{$wilaya="";}
+			if(isset($_POST['commune'])){$commune=$_POST['commune'];}else{$commune="";}
+			if(isset($_POST['adresse'])){$adresse=$_POST['adresse'];}else{$adresse="";}
+			if(isset($_POST['telephone'])){$telephone=$_POST['telephone'];}else{$telephone="";}
+			if(isset($_POST['lien'])){$lien=$_POST['lien'];}else{$lien="";}
+			echo $domaine." ".$etab." ".$type." ".$wilaya." ".$commune." ".$adresse." ".$telephone." ".$lien;
+			if(!empty($type)&&!empty($etab)&&!empty($type)&&!empty($etab)&&!empty($type)&&!empty($etab)){
+				$ess=new EtablissementTable($t);
+				$ess->add($etab,$type,$domaine,$wilaya,$commune,$adresse,$telephone,$lien);
+			}
+		}
+		elseif ($req=="update") {
+			if(isset($_POST['domaine'])){$domaine=$_POST['domaine'];}else{$domaine="";}
+			if(isset($_POST['wilaya'])){$wilaya=$_POST['wilaya'];}else{$wilaya="";}
+			if(isset($_POST['commune'])){$commune=$_POST['commune'];}else{$commune="";}
+			if(isset($_POST['adresse'])){$adresse=$_POST['adresse'];}else{$adresse="";}
+			if(isset($_POST['telephone'])){$telephone=$_POST['telephone'];}else{$telephone="";}
+			echo $domaine." ".$etab." ".$type." ".$wilaya." ".$commune." ".$adresse." ".$telephone." ".$lien;
+			if(!empty($type)&&!empty($etab)&&!empty($type)&&!empty($etab)&&!empty($type)&&!empty($etab)){
+				$ess=new EtablissementTable($t);
+				$ess->update($etab,$type,$domaine,$wilaya,$commune,$adresse,$telephone,$lien);
+			}
+		}
 	}
 ?>

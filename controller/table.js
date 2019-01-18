@@ -32,20 +32,18 @@ function tocomment($etab){
     //$e='<input id="etablissement" name="etablissement" type="hidden" value="'+$etab+'">';
     //alert($etab);
     link($etab);
-    window.location.replace("../utilisateur/comment.php");
-
 }
 
 function link($type){
     //alert($type);
     var xhttp;
   xhttp = new XMLHttpRequest();
-  /*xhttp.onreadystatechange = function() {
+  xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-       // alert(xhttp.responseText)
+       window.location.replace("../utilisateur/comment.php");
     }
-  };*/
-  xhttp.open("POST", "../controller/commentlinker.php", true);
+  };
+  xhttp.open("POST", "../../controller/commentlinker.php", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   //alert($type);
   xhttp.send("etablissement="+$type); 

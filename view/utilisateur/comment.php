@@ -17,7 +17,7 @@
             echo '<input id="login" name="login" type="hidden" value="false">';
         }
         if(!empty($_SESSION["etablissement"])){
-            echo '<input id="etablissement" name="etablissement" type="hidden" value="ksbkefbj">';
+            echo '<input id="etablissement" name="etablissement" type="hidden" value="'.$_SESSION["etablissement"].'">';
         }
         else{
             echo '<input id="etablissement" name="etablissement" type="hidden" value="false">';

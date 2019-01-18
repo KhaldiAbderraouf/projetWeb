@@ -2,7 +2,8 @@
 	/**
 	* 
 	*/
-	
+	//$res=new EtablissementTable("me");
+	//$res->update("test","test","test","test","test","test","test1111","test");
 
 	class EtablissementTable
 	{
@@ -80,12 +81,15 @@
 			$res=new Etablissement();
 			$tab=$res->getTableAdmin();
 			$tbody="";
+			$i=0;
 			foreach ($tab as $row ) {
 				$ligne="<tr>";
 				$ligne=$ligne."<td><a href= '".$row['link']."'>".$row['nom']."</a></td><td>".$row['typef']."</td><td>".$row['domaine']."</td><td>".$row['wilaya']."</td><td>".$row['commune']."</td><td>".$row['adresse']."</td><td>".$row['tel']."</td>";
-				$ligne=$ligne."<td><button id='".$row['nom'].",".$row['typef']."' onClick= 'deleting(this.id)' style='background-color:red;'>supprimer</button></td>";
+				$ligne=$ligne."<td><button id='".$row['nom'].",".$row['typef']."' onClick= 'deleting(this.id)' style='background-color:red;'></button>";
+				$ligne=$ligne."<button id='m".$i."' onClick= 'modifier(this.id)' style='background-color:yellow;'></button></td>";
 				$ligne=$ligne."</tr>";
 				$tbody=$tbody.$ligne;
+				$i++;
 			}
 			return $tbody;
 		}
@@ -94,7 +98,12 @@
 			$res->delete($etab,$type);
 		}
 		function add($etab,$type,$domaine,$wilaya,$commune,$adresse,$telephone,$lien){
-
+			$res=new Etablissement();
+			$res->add($etab,$type,$domaine,$wilaya,$commune,$adresse,$telephone,$lien);
+		}
+		function update($etab,$type,$domaine,$wilaya,$commune,$adresse,$telephone){
+			$res=new Etablissement();
+			$res->update($etab,$type,$domaine,$wilaya,$commune,$adresse,$telephone);
 		}
 	}
 ?>

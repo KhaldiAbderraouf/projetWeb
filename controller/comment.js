@@ -26,7 +26,7 @@ function getComs($type){
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
     	$t=xhttp.responseText;
-    	alert($t+" "+$type);
+    	//alert($t+" "+$type);
 	    $("table tbody").html($t);
     }
   };

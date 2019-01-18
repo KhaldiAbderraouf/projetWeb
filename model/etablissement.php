@@ -2,6 +2,7 @@
 	/**
 	* 
 	*/
+
 	class Etablissement
 	{
 		private $bdd; 
@@ -40,11 +41,17 @@
 		function delete($etab,$type){
 			$res=$this->bdd->execute("delete from etablissement where nom='".$etab."' and typef='".$type."' ;");
 		}
-		function add($etab,$type,$domaine,$wilaya,$commune,$adresse,$telephone,$lien){
+		function add($etab,$type,$domaine,$wilaya,$commune,$adresse,$telephone){
 			if(!empty($domaine)){$domaine="NULL";}
 			$lien="http://127.0.0.1/madrassa2";
-			$val="'".$etab."',"."'".$type."',"."'".$domaine."',"."'".$wilaya."',"."'".$commune."',"."'".$adresse."',"."'".$telephone."',"."'".$lien."'";
+			$val="'".$etab."',"."'".$type."',"."'".$domaine."',"."'".$wilaya."',"."'".$commune."',"."'".$adresse."',"."'".$telephone."',NULL,"."'".$lien."'";
 			$res=$this->bdd->execute("insert into etablissement values (".$val.");");
+		}
+		function update($etab,$type,$domaine,$wilaya,$commune,$adresse,$telephone){
+			if(!empty($domaine)){$domaine="NULL";}
+			$lien="http://127.0.0.1/madrassa2";
+			$val="'".$etab."',"."'".$type."',"."'".$domaine."',"."'".$wilaya."',"."'".$commune."',"."'".$adresse."',"."'".$telephone."',NULL,"."'".$lien."'";
+			$res=$this->bdd->execute("UPDATE etablissement SET domaine='".$domaine."',adresse='".$adresse."',tel='".$telephone."',link='".$lien."' WHERE nom='".$etab."' AND typef='".$type."' AND wilaya='".$wilaya."' AND commune='".$commune."';");
 		}
 	}
 ?>

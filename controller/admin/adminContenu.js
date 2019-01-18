@@ -64,7 +64,7 @@ function deleting($arg){
   	xhttp.onreadystatechange = function() {
     	if (xhttp.readyState == 4 && xhttp.status == 200) {
     		$t=xhttp.responseText;
-    		$("#myTable tbody").clear();
+    		$("#myTable tbody").empty();
     		addToTable();
     	}
   	};
@@ -73,6 +73,7 @@ function deleting($arg){
   	//alert($type);
   	xhttp.send("req=delete&type="+$args[1]+"&etab="+$args[0]);
 }
+
 
 function lancerAjout(){
 	//alert($("#myModal").html());
@@ -88,20 +89,56 @@ function ajouter(){
 	$args5=$("#adresse").val();
 	$args6=$("#telephone").val();
 	$args7=$("#lien").val();
-	//alert($args0+" "+$args1+" "+$args2+" "+$args3+" "+$args4);
+	alert($args0+" "+$args1+" "+$args2+" "+$args3+" "+$args4+" "+$args5+" "+$args6+" "+$args7);
 
 	var xhttp;
   	xhttp = new XMLHttpRequest();
   	xhttp.onreadystatechange = function() {
     	if (xhttp.readyState == 4 && xhttp.status == 200) {
     		$t=xhttp.responseText;
-    		$("#myTable tbody").clear();
+    		//alert($t);
+    		$("#myTable tbody").empty();
     		addToTable();
+    		document.getElementById('id01').style.display='none';
     	}
   	};
   	xhttp.open("POST", "../../controller/EtablissementManager.php", true);
   	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   	//alert($type);
-  	xhttp.send("req=ajouter&arg0="+$args1+"&arg1="+$args1+"&arg2="+$args2+"&arg3="+$args3+"&arg4="+$args4+"&arg5="+$args5+"&arg6="+$args6+"&arg7="+$args7);
+  	xhttp.send("req=add&etab="+$args1+"&type="+$args1+"&domaine="+$args2+"&wilaya="+$args3+"&commune="+$args4+"&adresse="+$args5+"&telephone="+$args6+"&lien="+$args7);
+}
 
+function modifier($id){
+	$("#"+$id).closest('tr').attr('contenteditable', 'true');
+	$("#"+$id).parent().append("<button id='c"+$id+"' onclick='update(this.id)'></button>");
+}
+
+function update($id){
+	$tr=$("#"+$id).closest('tr');
+	$tr.attr('contenteditable', 'false');
+	//.children( ".selected" ).css( "color", "blue" );
+	//alert($tr.children("td:eq(1)").text());
+	$args0=$tr.children("a").text();
+	$args1=$tr.children("td:eq(1)").text();
+	$args2=$tr.children("td:eq(2)").text();
+	$args3=$tr.children("td:eq(3)").text();
+	$args4=$tr.children("td:eq(4)").text();
+	$args5=$tr.children("td:eq(5)").text();
+	$args6=$tr.children("td:eq(6)").text();
+	var xhttp;
+  	xhttp = new XMLHttpRequest();
+  	xhttp.onreadystatechange = function() {
+    	if (xhttp.readyState == 4 && xhttp.status == 200) {
+    		$t=xhttp.responseText;
+    		$("#"+$id).remove();
+    		//alert($t);
+    		$("#myTable tbody").empty();
+    		addToTable();
+    		
+    	}
+  	};
+  	xhttp.open("POST", "../../controller/EtablissementManager.php", true);
+  	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  	//alert($type);
+  	xhttp.send("req=update&etab="+$args1+"&type="+$args1+"&domaine="+$args2+"&wilaya="+$args3+"&commune="+$args4+"&adresse="+$args5+"&telephone="+$args6);
 }
